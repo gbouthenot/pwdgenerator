@@ -1,0 +1,99 @@
+
+- scripts = getBlock("scripts")
+- css = getBlock("styles")
+- scripts.add("/vendor/jquery/jquery-1.8.3.min.js", {defer:false})
+- scripts.add("/vendor/bootstrap-twitter/js/bootstrap.min.js");
+- scripts.add("/main.js", {defer:false});
+- scripts.add("/Generator.js", {defer:false});
+- scripts.add("/marked.js", {defer:false});
+- css.add("/vendor/bootstrap-twitter/css/bootstrap.min.css");
+
+doctype 5
+html
+  head
+    meta(http-equiv="Content-Type",        content="text/html; charset=UTF-8")
+    meta(http-equiv='Content-Script-Type', content='text/javascript')
+    meta(http-equiv='Content-Style-Type',  content='text/css')
+    meta(http-equiv='Content-Language',    content='fr')
+    link(rel="shortcut icon",   href="")
+    meta(name="robots", content="noindex, nofollow")
+    title #{document.title}
+    != getBlock("meta").toHTML()
+    != css.toHTML()
+    style
+      .nobr { white-space:nowrap; }
+      input#maxlen, input#minlen { width:1.5em;
+      }
+      input#alphabet { width:40em;
+      }
+      textarea#input, textarea#output {
+        background:#eee;
+        color:#000;
+        border:1px solid #aaa;
+        width:25em;
+        height:15em;
+        font-family:consolas, monospace;
+        font-size:90%;
+        line-height:120%;
+      }
+      textarea#output {
+        /* forbid resize */
+        resize:none;
+        cursor:text;
+      }
+      fieldset.contraintes input { width:1.5em; }
+      fieldset {
+        border:1px solid #bbb;
+        margin:0 10px;
+        padding:0 10px;
+      }
+      fieldset.inline {
+        display:inline-block;
+        vertical-align:top;
+      }
+      legend {
+        border:0;
+        width:auto;
+        margin:0;
+      }
+      label {
+        display:inline-block;
+        white-space:nowrap;
+        margin-right:1em;
+      }
+      input[type=text] {
+        margin:0;
+        padding:0;
+        border:0;
+        outline:0;
+      }
+      input[type=text].unchiffre {
+        width:1.2em;
+        margin-bottom:2px;
+        padding-bottom:0px;
+      }
+      input[type=checkbox] {
+        /* vertical-align:top;*/ /* ( or margin:0 0 3px; )*/
+      }
+      .chkboxctn {
+        padding:4px 6px;
+        border:1px solid #ccc;
+        border-radius:4px;
+        display:inline-block;
+        margin-bottom:10px;
+        vertical-align:middle;
+        height:20px;
+        line-height:20px;
+      }
+      .chkboxctn input[type=checkbox] {
+        margin:0
+      }
+
+  body
+    != content
+    != scripts.toHTML()
+    script
+      $(document).ready(function(){
+        Main.init($);
+        PwdGenerator.init($)
+      });

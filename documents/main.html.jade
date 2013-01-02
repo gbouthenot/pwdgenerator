@@ -1,0 +1,66 @@
+---
+layout: default
+---
+
+h1 Generator
+fieldset
+  legend Paramètres du mot de passe
+  label Longueur minimale :
+    input#nbminlen(type="text")
+  label Longueur maximale :
+    input#nbmaxlen(type="text")
+  label Alphabet :
+    input#alphabet(type="text")
+fieldset.contraintes
+  legend Contraintes
+  label Au moins
+    input#nbnumber.unchiffre(type="text")
+    |  chiffre.
+  label Au moins
+    input#nblower.unchiffre(type="text")
+    |  lettre minuscule.
+  label Au moins
+    input#nbupper.unchiffre(type="text")
+    |  lettre majuscule.
+  label Au moins
+    input#nbspecial.unchiffre(type="text")
+    |  caractère spécial.
+fieldset.f_input.inline
+  legend Fichier en entrée
+  textarea#input(wrap='off').
+    BILLOT Florence
+    BONNOT Michèle
+    BOUCHARD Florence
+    CARRAT Nadège
+    GALLANTI Christine
+    GALLIACHE Sophy
+    GUINCHARD Dominique
+    GUTIERREZ Valérie
+    LEMENT Anna
+    LOIGET Stéphanie
+    NARBOUX Anne-Sophie
+    PEGEOT Jeanne
+    SUSSOT-ROBINE Gaëlle
+    TROMBETTA Magalie
+    VERDET Didier
+  br
+  label Séparateur nom/prénom :
+    select#selectseparator()
+      option(value="") Aucun
+      option(value=" ") Espace
+      option(value=";") Point virgule
+  br
+  label
+    span.chkboxctn
+      input#checkboxfirstnamefirst(type='checkbox')
+     |  Prénom en premier
+fieldset.f_output.inline
+  legend Sortie
+  textarea#output(readonly='readonly', wrap='off')
+fieldset
+  legend Opérations
+  p
+    a.btn.btn-primary#resetparambtn Réinitialiser les paramètres
+    |&nbsp;
+    a.btn.btn-primary#gobtn Générer
+
