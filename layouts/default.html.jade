@@ -1,11 +1,6 @@
 
 - scripts = getBlock("scripts")
 - css = getBlock("styles")
-- scripts.add("/vendor/jquery/jquery-1.8.3.min.js", {defer:false})
-- scripts.add("/vendor/bootstrap-twitter/js/bootstrap.min.js");
-- scripts.add("/main.js", {defer:false});
-- scripts.add("/Generator.js", {defer:false});
-- scripts.add("/marked.js", {defer:false});
 - css.add("/vendor/bootstrap-twitter/css/bootstrap.min.css");
 
 doctype 5
@@ -19,6 +14,7 @@ html
     meta(name="robots", content="noindex, nofollow")
     title #{document.title}
     != getBlock("meta").toHTML()
+    script(src="/vendor/require-js/require-jquery.js", data-main="scripts/main.js")
     != css.toHTML()
     style
       .nobr { white-space:nowrap; }
@@ -93,7 +89,12 @@ html
     != content
     != scripts.toHTML()
     script
-      $(document).ready(function(){
-        Main.init($);
-        PwdGenerator.init($)
+      require(["jquery", "Generator", "remove_accents"], function ($, PwdGeneratorMod, remove_accentsMod) {
+        removeAccents = remove_accentsMod.removeAccents;
+        PwdGenerator = PwdGeneratorMod.PwdGenerator;
+
+        $(document).ready(function(){
+          Main.init($);
+          //PwdGenerator.init($)
+        });
       });
