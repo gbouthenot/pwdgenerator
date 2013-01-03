@@ -1,5 +1,4 @@
-define ["jquery", "PwdGenerator", "remove_accents"], ($, PwdGeneratorMod, remove_accentsMod, require) ->
-  removeAccents = remove_accentsMod.removeAccents;
+define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
   PwdGenerator = PwdGeneratorMod.PwdGenerator;
 
   class App
@@ -56,11 +55,11 @@ define ["jquery", "PwdGenerator", "remove_accents"], ($, PwdGeneratorMod, remove
       for key in [ "nbnumber", "nblower", "nbupper", "nbspecial", "nbminlen",
                    "nbmaxlen", "alphabet", "selectseparator", "checkboxfirstnamefirst" ]
         node = $("##{key}");
-        if key.startsWith("checkbox")
+        if Gb.String.startsWith(key, "checkbox")
           val = node.is(":checked")
         else
           val = node.val()
-          val = parseInt(val) if key.startsWith("nb")
+          val = parseInt(val) if Gb.String.startsWith(key, "nb")
         opts[key] = val
       return opts
 
@@ -92,8 +91,8 @@ define ["jquery", "PwdGenerator", "remove_accents"], ($, PwdGeneratorMod, remove
 
       prenom ?= ""
       nom    ?= ""
-      prenom  = removeAccents(prenom)
-      nom     = removeAccents(nom)
+      prenom  = Gb.String.removeAccents(prenom)
+      nom     = Gb.String.removeAccents(nom)
       # ne garde que les lettres et le tiret
       regexp = /[^a-z\-]/g;
       prenom  = prenom.replace(regexp, "");
