@@ -1,4 +1,18 @@
-define(['exports'], function(exports){exports.removeAccents=function(s){ // source: http://semplicewebsites.com/removing-accents-javascript
+//https://github.com/jrburke/amdefine
+if (typeof define !== 'function') { var define = require('amdefine')(module) }
+define(function(require){
+  if (typeof String.prototype.startsWith != 'function') {
+    String.prototype.startsWith = function (str){
+      return this.slice(0, str.length) == str;
+    };
+  }
+  if (typeof String.prototype.endsWith != 'function') {
+    String.prototype.endsWith = function (str){
+      return this.slice(-str.length) == str;
+    };
+  }  
+  return{
+    removeAccents:function(s){ // source: http://semplicewebsites.com/removing-accents-javascript
 var l={"Á":"A","Ă":"A","Ắ":"A","Ặ":"A","Ằ":"A","Ẳ":"A","Ẵ":"A","Ǎ":"A","Â":"A","Ấ":"A","Ậ":"A","Ầ":"A","Ẩ":"A","Ẫ":"A",
 "Ä":"A","Ǟ":"A","Ȧ":"A","Ǡ":"A","Ạ":"A","Ȁ":"A","À":"A","Ả":"A","Ȃ":"A","Ā":"A","Ą":"A","Å":"A","Ǻ":"A","Ḁ":"A","Ⱥ":"A",
 "Ã":"A","Ꜳ":"AA","Æ":"AE","Ǽ":"AE","Ǣ":"AE","Ꜵ":"AO","Ꜷ":"AU","Ꜹ":"AV","Ꜻ":"AV","Ꜽ":"AY","Ḃ":"B","Ḅ":"B","Ɓ":"B","Ḇ":"B"
@@ -55,5 +69,5 @@ var l={"Á":"A","Ă":"A","Ắ":"A","Ặ":"A","Ằ":"A","Ẳ":"A","Ẵ":"A","Ǎ":
 ,"ÿ":"y","ẏ":"y","ỵ":"y","ỳ":"y","ƴ":"y","ỷ":"y","ỿ":"y","ȳ":"y","ẙ":"y","ɏ":"y","ỹ":"y","ź":"z","ž":"z","ẑ":"z","ʑ":"z"
 ,"ⱬ":"z","ż":"z","ẓ":"z","ȥ":"z","ẕ":"z","ᵶ":"z","ᶎ":"z","ʐ":"z","ƶ":"z","ɀ":"z","ﬀ":"ff","ﬃ":"ffi","ﬄ":"ffl","ﬁ":"fi",
 "ﬂ":"fl","ĳ":"ij","œ":"oe","ﬆ":"st","ₐ":"a","ₑ":"e","ᵢ":"i","ⱼ":"j","ₒ":"o","ᵣ":"r","ᵤ":"u","ᵥ":"v","ₓ":"x"};
-return s.replace( /[^A-Za-z0-9\[\] ]/g, function(a){ return l[a] || a;} );};
-});
+return s.replace( /[^A-Za-z0-9\[\] ]/g, function(a){ return l[a] || a;} ) }/*end of removeAccents*/
+}/*end of return obj*/; })/*enf of define call*/;

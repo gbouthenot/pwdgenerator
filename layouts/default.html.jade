@@ -18,9 +18,11 @@ html
     != css.toHTML()
     style
       .nobr { white-space:nowrap; }
-      input#maxlen, input#minlen { width:1.5em;
+      input#nbmaxlen, input#nbminlen {
+        width:2.5em;
       }
-      input#alphabet { width:40em;
+      input#alphabet {
+        width:40em;
       }
       textarea#input, textarea#output {
         background:#eee;
@@ -37,7 +39,9 @@ html
         resize:none;
         cursor:text;
       }
-      fieldset.contraintes input { width:1.5em; }
+      fieldset.contraintes input {
+        width:2.5em;
+      }
       fieldset {
         border:1px solid #bbb;
         margin:0 10px;
@@ -57,19 +61,22 @@ html
         white-space:nowrap;
         margin-right:1em;
       }
-      input[type=text] {
+      input[type=text], input[type=number] {
         margin:0;
         padding:0;
         border:0;
         outline:0;
       }
-      input[type=text].unchiffre {
-        width:1.2em;
+      input[type=number].unchiffre {
+        width:2.5em;
         margin-bottom:2px;
         padding-bottom:0px;
       }
       input[type=checkbox] {
         /* vertical-align:top;*/ /* ( or margin:0 0 3px; )*/
+      }
+      select#selectseparator {
+        width:auto;
       }
       .chkboxctn {
         padding:4px 6px;
@@ -88,13 +95,3 @@ html
   body
     != content
     != scripts.toHTML()
-    script
-      require(["jquery", "Generator", "remove_accents"], function ($, PwdGeneratorMod, remove_accentsMod) {
-        removeAccents = remove_accentsMod.removeAccents;
-        PwdGenerator = PwdGeneratorMod.PwdGenerator;
-
-        $(document).ready(function(){
-          Main.init($);
-          //PwdGenerator.init($)
-        });
-      });

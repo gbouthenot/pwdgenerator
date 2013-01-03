@@ -6,24 +6,24 @@ h1 Generator
 fieldset
   legend Paramètres du mot de passe
   label Longueur minimale :
-    input#nbminlen(type="text")
+    input#nbminlen(type="number", required, min="1", max="16", pattern="^\\\\d{1,2}$")
   label Longueur maximale :
-    input#nbmaxlen(type="text")
+    input#nbmaxlen(type="number", required, min=3, max=16, pattern="^\\\\d{1,2}$")
   label Alphabet :
-    input#alphabet(type="text")
+    input#alphabet(type="text", required="required")
 fieldset.contraintes
   legend Contraintes
   label Au moins
-    input#nbnumber.unchiffre(type="text")
+    input#nbnumber.unchiffre(type="number", required, min="0", max="3", pattern="^\\\\d{0,1}$")
     |  chiffre.
   label Au moins
-    input#nblower.unchiffre(type="text")
+    input#nblower.unchiffre(type="number", required, min="0", max="3", pattern="^\\\\d{0,1}$"))
     |  lettre minuscule.
   label Au moins
-    input#nbupper.unchiffre(type="text")
+    input#nbupper.unchiffre(type="number", required, min="0", max="3", pattern="^\\\\d{0,1}$"))
     |  lettre majuscule.
   label Au moins
-    input#nbspecial.unchiffre(type="text")
+    input#nbspecial.unchiffre(type="number", required, min="0", max="3", pattern="^\\\\d{0,1}$"))
     |  caractère spécial.
 fieldset.f_input.inline
   legend Fichier en entrée
@@ -46,9 +46,9 @@ fieldset.f_input.inline
   br
   label Séparateur nom/prénom :
     select#selectseparator()
-      option(value="") Aucun
       option(value=" ") Espace
       option(value=";") Point virgule
+      option(value="") Aucun
   br
   label
     span.chkboxctn
