@@ -1,4 +1,4 @@
-define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
+define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, require) ->
   PwdGenerator = PwdGeneratorMod.PwdGenerator;
 
   class App
@@ -55,11 +55,11 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
       for key in [ "nbnumber", "nblower", "nbupper", "nbspecial", "nbminlen",
                    "nbmaxlen", "alphabet", "selectseparator", "checkboxfirstnamefirst" ]
         node = $("##{key}");
-        if Gb.String.startsWith(key, "checkbox")
+        if Gb_String.startsWith(key, "checkbox")
           val = node.is(":checked")
         else
           val = node.val()
-          val = parseInt(val) if Gb.String.startsWith(key, "nb")
+          val = parseInt(val) if Gb_String.startsWith(key, "nb")
         opts[key] = val
       return opts
 
@@ -91,8 +91,8 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
 
       prenom ?= ""
       nom    ?= ""
-      prenom  = Gb.String.removeAccents(prenom)
-      nom     = Gb.String.removeAccents(nom)
+      prenom  = Gb_String.removeAccents(prenom)
+      nom     = Gb_String.removeAccents(nom)
       # ne garde que les lettres et le tiret
       regexp = /[^a-z\-]/g;
       prenom  = prenom.replace(regexp, "");

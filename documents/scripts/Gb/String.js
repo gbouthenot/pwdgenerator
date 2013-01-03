@@ -3,10 +3,9 @@ if (typeof define !== 'function') { var define = require('amdefine')(module) }
 define(function(require){
   var mod = {};
   mod.version = "0.0.1";
-  mod.String = {};
-  mod.String.startsWith = function (s, needle){ return s.slice(0, needle.length) == needle; };
-  mod.String.endsWith   = function (s, needle){ return s.slice(-needle.length) == needle;   };
-  mod.String.removeAccents=function(s){ // source: http://semplicewebsites.com/removing-accents-javascript
+  mod.startsWith = function (s, needle){ return s.slice(0, needle.length) == needle; };
+  mod.endsWith   = function (s, needle){ return s.slice(-needle.length) == needle;   };
+  mod.removeAccents=function(s){ // source: http://semplicewebsites.com/removing-accents-javascript
 var l={"Á":"A","Ă":"A","Ắ":"A","Ặ":"A","Ằ":"A","Ẳ":"A","Ẵ":"A","Ǎ":"A","Â":"A","Ấ":"A","Ậ":"A","Ầ":"A","Ẩ":"A","Ẫ":"A",
 "Ä":"A","Ǟ":"A","Ȧ":"A","Ǡ":"A","Ạ":"A","Ȁ":"A","À":"A","Ả":"A","Ȃ":"A","Ā":"A","Ą":"A","Å":"A","Ǻ":"A","Ḁ":"A","Ⱥ":"A",
 "Ã":"A","Ꜳ":"AA","Æ":"AE","Ǽ":"AE","Ǣ":"AE","Ꜵ":"AO","Ꜷ":"AU","Ꜹ":"AV","Ꜻ":"AV","Ꜽ":"AY","Ḃ":"B","Ḅ":"B","Ɓ":"B","Ḇ":"B"
