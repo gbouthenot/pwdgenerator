@@ -59,7 +59,7 @@ define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, 
           val = node.is(":checked")
         else
           val = node.val()
-          val = parseInt(val) if Gb_String.startsWith(key, "nb")
+          val = parseInt(val, 10) if Gb_String.startsWith(key, "nb")
         opts[key] = val
       return opts
 
@@ -82,12 +82,12 @@ define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, 
 
 
     processLine = (line, gen, opts) =>
-      sep = opts["selectseparator"]
+      sep = opts.selectseparator
       line = splitInTwo(line, sep).map (s) ->
         s.trim()
 
-      prenom = line[1-Number(opts["checkboxfirstnamefirst"])];
-      nom    = line[Number(opts["checkboxfirstnamefirst"])];
+      prenom = line[1-Number(opts.checkboxfirstnamefirst)];
+      nom    = line[Number(opts.checkboxfirstnamefirst)];
 
       prenom ?= ""
       nom    ?= ""

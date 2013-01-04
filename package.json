@@ -1,16 +1,16 @@
 {
-  "engines" : {
+  "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
   },
   "dependencies": {
     "docpad": "6.x",
-    "docpad-plugin-coffeekup":"*",
-    "docpad-plugin-coffeescript":"*",
-    "docpad-plugin-eco":"*",
-    "docpad-plugin-html2coffee":"*",
-    "docpad-plugin-jade":"*",
-    "docpad-plugin-marked":"*"
+    "docpad-plugin-coffeekup": "*",
+    "docpad-plugin-coffeescript": "*",
+    "docpad-plugin-eco": "*",
+    "docpad-plugin-jade": "*",
+    "docpad-plugin-marked": "*",
+    "docpad-plugin-uglify": "~1.0.0",
   },
   "main": "node_modules/docpad/bin/docpad-server",
   "scripts": {

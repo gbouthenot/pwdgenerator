@@ -1,5 +1,5 @@
 define ->
-  class PwdGenerator
+  class thismod
     $ = null
     @init: (__$) ->
       $ = __$
@@ -30,7 +30,7 @@ define ->
       string = ""
 
       for i in [0...length]
-        rnd = PwdGenerator.randomIntBetween(0, size)
+        rnd = thismod.randomIntBetween(0, size)
         c = alphabet[rnd];
         string += c;
 
@@ -63,7 +63,7 @@ define ->
       return true
 
     createOne: () ->
-      len = PwdGenerator.randomIntBetween(@opts.nbminlen, @opts.nbmaxlen);
+      len = thismod.randomIntBetween(@opts.nbminlen, @opts.nbmaxlen);
       alphabet = @opts.alphabet;
 
       aContraintes = [
@@ -87,7 +87,7 @@ define ->
           isValid = false;
 
       for iteration in [1...100]
-        pass = PwdGenerator.randomString(len, alphabet);
+        pass = thismod.randomString(len, alphabet);
         isValid = true;
 
         # vérifie les contraintes
@@ -102,4 +102,4 @@ define ->
 
       return pass
 
-  return {"PwdGenerator":PwdGenerator};
+  return {"PwdGenerator":thismod};

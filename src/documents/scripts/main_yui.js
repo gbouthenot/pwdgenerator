@@ -70,7 +70,7 @@ var Main  = (function () { // doit être lié au constructeur
                 var elem = Y.one("#" + desc.idname);
                 var value = elem.get("value");
                 if ("i" == desc.type) {
-                    value = parseInt(value);
+                    value = parseInt(value, 10);
                     if (!Y.Lang.isNumber(value)) {
                         throw desc.idname + " n'est pas un nombre";
                     }
@@ -87,7 +87,7 @@ var Main  = (function () { // doit être lié au constructeur
             
             var generator = new Generator(params);
             generator.createOne();
-        })
+        });
     };
     __construct.randomString     = randomString;
     __construct.randomIntBetween = randomIntBetween;
@@ -101,8 +101,8 @@ var Generator = (function(){
     "use strict";
 
     var __construct = function(params) {
-        params.minlen = parseInt(params.minlen);
-        params.maxlen = parseInt(params.maxlen);
+        params.minlen = parseInt(params.minlen, 10);
+        params.maxlen = parseInt(params.maxlen, 10);
         this.params = params;
         
     };
@@ -149,7 +149,7 @@ var Generator = (function(){
         }
         
         if (true !== isValid) {
-            throw "Impossible de générer un mot de passe avec les contraintes demandées"
+            throw "Impossible de générer un mot de passe avec les contraintes demandées";
         }
         
         console.log(iteration, pass);
