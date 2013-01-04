@@ -1,7 +1,13 @@
-
 - scripts = getBlock("scripts")
 - css = getBlock("styles")
 - css.add("vendor/bootstrap-twitter/css/bootstrap.min.css");
+- var col = getCollection("stylesheet").findAll({isDocument:true}).toJSON();
+- col.forEach(function(page){ var url;
+-    url = page.url;
+-    url = url.substr(1); // remove starting "/"
+-    css.add(url)
+- });
+
 
 doctype 5
 html
@@ -16,81 +22,6 @@ html
     != getBlock("meta").toHTML()
     script(src="vendor/require-js/require-jquery.js", data-main="scripts/main.js")
     != css.toHTML()
-    style
-      .nobr { white-space:nowrap; }
-      input#nbmaxlen, input#nbminlen {
-        width:2.5em;
-      }
-      input#alphabet {
-        width:40em;
-      }
-      textarea#input, textarea#output {
-        background:#eee;
-        color:#000;
-        border:1px solid #aaa;
-        width:25em;
-        height:15em;
-        font-family:consolas, monospace;
-        font-size:90%;
-        line-height:120%;
-      }
-      textarea#output {
-        /* forbid resize */
-        resize:none;
-        cursor:text;
-      }
-      fieldset.contraintes input {
-        width:2.5em;
-      }
-      fieldset {
-        border:1px solid #bbb;
-        margin:0 10px;
-        padding:0 10px;
-      }
-      fieldset.inline {
-        display:inline-block;
-        vertical-align:top;
-      }
-      legend {
-        border:0;
-        width:auto;
-        margin:0;
-      }
-      label {
-        display:inline-block;
-        white-space:nowrap;
-        margin-right:1em;
-      }
-      input[type=text], input[type=number] {
-        margin:0;
-        padding:0;
-        border:0;
-        outline:0;
-      }
-      input[type=number].unchiffre {
-        width:2.5em;
-        margin-bottom:2px;
-        padding-bottom:0px;
-      }
-      input[type=checkbox] {
-        /* vertical-align:top;*/ /* ( or margin:0 0 3px; )*/
-      }
-      select#selectseparator {
-        width:auto;
-      }
-      .chkboxctn {
-        padding:4px 6px;
-        border:1px solid #ccc;
-        border-radius:4px;
-        display:inline-block;
-        margin-bottom:10px;
-        vertical-align:middle;
-        height:20px;
-        line-height:20px;
-      }
-      .chkboxctn input[type=checkbox] {
-        margin:0
-      }
 
   body
     != content
