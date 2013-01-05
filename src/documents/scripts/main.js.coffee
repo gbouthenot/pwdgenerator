@@ -1,4 +1,4 @@
-require ["jquery", "App"], ($, AppMod) ->
+define ["jquery", "App"], ($, AppMod) ->
   App = AppMod.App
 
   $(document).ready ->

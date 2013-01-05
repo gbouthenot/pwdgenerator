@@ -78,10 +78,13 @@ docpadConfig = {
     # Configure Plugins
     # Should contain the plugin short names on the left, and the configuration to pass the plugin on the right
     plugins:
+        handlebars:
+            precompileOpts:
+                wrapper: "default"
 
-        # Disable NIB within the Stylus Plugin
+        # Enable NIB within the Stylus Plugin
         stylus:
-            useNib: false
+            useNib: true
 
 
     # =================================
@@ -101,17 +104,14 @@ docpadConfig = {
     # =================================
     # Environments
 
-    environments: {
-        development: {
+    environments:
+        development:
             # anything here will be merged with the top-level (production) configuration if we are running inside the development environment
             enabledPlugins:
-                # Disable the Pokemon Plugin
+                # Disable Uflify for development
                 uglify: false
-        }
-        static: {
+        static:
             outPath: "out/"
-        }
-    }
 
 }
 
