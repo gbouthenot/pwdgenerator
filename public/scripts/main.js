@@ -1,0 +1,1 @@
+(function(){define(["jquery","App"],function(e,t){var n;return n=t.App,e(document).ready(function(){return n.init(e)})})}).call(this)
