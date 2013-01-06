@@ -3,11 +3,45 @@
 //https://github.com/jrburke/amdefine
 if (typeof define !== 'function') { var define = require('amdefine')(thismodule); }
 define(function(require){
-  var thismod = {};
-  thismod.version = "0.0.1";
-  thismod.startsWith = function (s, needle){ return s.slice(0, needle.length) == needle; };
-  thismod.endsWith   = function (s, needle){ return s.slice(-needle.length) == needle;   };
-  thismod.removeAccents=function(s){ /* source: http://semplicewebsites.com/removing-accents-javascript */
+    "use strict";
+
+    var thismod = {};
+    thismod.version = "0.0.1";
+    thismod.startsWith = function(s, needle){ return s.slice(0, needle.length) == needle; };
+    thismod.endsWith   = function(s, needle){ return s.slice(-needle.length) == needle;   };
+    thismod.forEach    = function(thisarray, a,t){for(var i=0,n=thisarray.length;i<n;i++)if(i in thisarray)a.call(t,thisarray[i],i,thisarray);};
+    thismod.trim       = function(s){return s.replace(/^\s+/,'').replace(/\s+$/,'');};
+    thismod.log        = function(){if('console' in window){window.console.log.apply(0,arguments);}};
+
+
+    // cookie functions from http://www.siteduzero.com/tutoriel-3-4724-les-cookies.html
+    // and http://www.markusnordhaus.de/2012/01/20/using-cookies-in-javascript-part-1/
+    thismod.getCookie = function (cookieName, defaultValue) {
+        var oRegex = new RegExp("(?:; )?" + cookieName + "=([^;]*);?");
+        return (oRegex.test(document.cookie)) ? (decodeURIComponent(RegExp.$1)) : (defaultValue);
+    };
+    /**
+     * set a cookie
+     * if minutes in undefined, set a session cookie
+     */
+    thismod.setCookie = function (cookieName, cookieValue, minutes) {
+        var cook = cookieName + "=" + encodeURIComponent(cookieValue);
+        if (undefined !== minutes) { var expires = new Date();
+            expires.setTime(expires.getTime() + (minutes*60*1000));
+            cook += ";expires=" + expires.toGMTString();
+        }
+        document.cookie = cook;
+    };
+    /**
+     * Delete a cookie by setting the date of expiry to yesterday
+     */
+    thismod.deleteCookie = function (cookieName) {
+        var date = new Date();
+        date.setDate(date.getDate() - 1);
+        document.cookie = escape(key) + '=;expires=' + date;
+    };
+
+    thismod.removeAccents=function(s){ /* source: http://semplicewebsites.com/removing-accents-javascript */
 var l={"Á":"A","Ă":"A","Ắ":"A","Ặ":"A","Ằ":"A","Ẳ":"A","Ẵ":"A","Ǎ":"A","Â":"A","Ấ":"A","Ậ":"A","Ầ":"A","Ẩ":"A","Ẫ":"A",
 "Ä":"A","Ǟ":"A","Ȧ":"A","Ǡ":"A","Ạ":"A","Ȁ":"A","À":"A","Ả":"A","Ȃ":"A","Ā":"A","Ą":"A","Å":"A","Ǻ":"A","Ḁ":"A","Ⱥ":"A",
 "Ã":"A","Ꜳ":"AA","Æ":"AE","Ǽ":"AE","Ǣ":"AE","Ꜵ":"AO","Ꜷ":"AU","Ꜹ":"AV","Ꜻ":"AV","Ꜽ":"AY","Ḃ":"B","Ḅ":"B","Ɓ":"B","Ḇ":
@@ -65,8 +99,8 @@ var l={"Á":"A","Ă":"A","Ắ":"A","Ặ":"A","Ằ":"A","Ẳ":"A","Ẵ":"A","Ǎ":
 "z","ẑ":"z","ʑ":"z","ⱬ":"z","ż":"z","ẓ":"z","ȥ":"z","ẕ":"z","ᵶ":"z","ᶎ":"z","ʐ":"z","ƶ":"z","ɀ":"z","ﬀ":"ff","ﬃ":"ffi",
 "ﬄ":"ffl","ﬁ":"fi","ﬂ":"fl","ĳ":"ij","œ":"oe","ﬆ":"st","ₐ":"a","ₑ":"e","ᵢ":"i","ⱼ":"j","ₒ":"o","ᵣ":"r","ᵤ":"u","ᵥ":"v",
 "ₓ":"x"};
-return s.replace( /[^A-Za-z0-9\[\] ]/g, function(a){ return l[a] || a;} );
-};/*end of removeAccents fn*/
+        return s.replace( /[^A-Za-z0-9\[\] ]/g, function(a){ return l[a] || a;} );
+    };/*end of removeAccents fn*/
 
 return thismod;/*end of return obj*/
 

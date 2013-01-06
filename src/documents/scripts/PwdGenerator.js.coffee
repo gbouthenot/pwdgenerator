@@ -1,4 +1,4 @@
-define ->
+define ["Gb"], (Gb, require)->
   class thismod
     $ = null
     @init: (__$) ->
@@ -91,7 +91,7 @@ define ->
         isValid = true;
 
         # vérifie les contraintes
-        aContraintes.forEach(contrainteEnforcer);
+        Gb.forEach(aContraintes, contrainteEnforcer);
 
         if (isValid is true)
           # toutes les contraintes sont respectées

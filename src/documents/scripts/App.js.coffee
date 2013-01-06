@@ -1,4 +1,4 @@
-define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, require) ->
+define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
   PwdGenerator = PwdGeneratorMod.PwdGenerator;
 
   class App
@@ -41,7 +41,7 @@ define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, 
       if msg != true
         alert("Erreur dans les contraintes : #{msg}")
         return
-      text = @getInput().map (line) =>
+      text = @getInput(opts).map (line) =>
         processLine(line, gen, opts)
       @setOutput text
 
@@ -55,11 +55,11 @@ define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, 
       for key in [ "nbnumber", "nblower", "nbupper", "nbspecial", "nbminlen",
                    "nbmaxlen", "alphabet", "selectseparator", "checkboxfirstnamefirst" ]
         node = $("##{key}");
-        if Gb_String.startsWith(key, "checkbox")
+        if Gb.startsWith(key, "checkbox")
           val = node.is(":checked")
         else
           val = node.val()
-          val = parseInt(val, 10) if Gb_String.startsWith(key, "nb")
+          val = parseInt(val, 10) if Gb.startsWith(key, "nb")
         opts[key] = val
       return opts
 
@@ -69,7 +69,7 @@ define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, 
     ###
     @getInput= ->
       aIn = $("#input").val().toLowerCase().split("\n").map (s) ->
-        s.trim()
+        Gb.trim(s)
       aIn.filter (line) ->
         return line.length>0
 
@@ -83,16 +83,16 @@ define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, 
 
     processLine = (line, gen, opts) =>
       sep = opts.selectseparator
-      line = splitInTwo(line, sep).map (s) ->
-        s.trim()
+      line = splitInTwo(line, opts).map (s) ->
+        Gb.trim(s)
 
       prenom = line[1-Number(opts.checkboxfirstnamefirst)];
       nom    = line[Number(opts.checkboxfirstnamefirst)];
 
       prenom ?= ""
       nom    ?= ""
-      prenom  = Gb_String.removeAccents(prenom)
-      nom     = Gb_String.removeAccents(nom)
+      prenom  = Gb.removeAccents(prenom)
+      nom     = Gb.removeAccents(nom)
       # ne garde que les lettres et le tiret
       regexp = /[^a-z\-]/g;
       prenom  = prenom.replace(regexp, "");
@@ -115,8 +115,14 @@ define ["jquery", "PwdGenerator", "Gb/String"], ($, PwdGeneratorMod, Gb_String, 
     ###
       return a string split by a separator
     ###
-    splitInTwo = (line, sep) ->
-      i = line.indexOf(sep)
+    splitInTwo = (line, opts) ->
+      sep = opts.selectseparator
+      if (opts.checkboxfirstnamefirst)
+        # prénom en premier: commence à gauche
+        i = line.indexOf(sep)
+      else
+        # nom en premier: commence à droite
+        i = line.lastIndexOf(sep)
       return [ line ] if (i is -1) or (sep is "")
       return [ line.slice(0,i), line.slice(i+1) ]
 

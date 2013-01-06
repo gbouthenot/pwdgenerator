@@ -21,16 +21,14 @@ docpadConfig = {
             url: "http://website.com"
 
             # The default title of our website
-            title: "Your Website"
+            title: "Password generator"
 
             # The website description (for SEO)
             description: """
-                When your website appears in search results in say Google, the text here will be shown underneath your website's title.
                 """
 
             # The website keywords (for SEO) separated by commas
             keywords: """
-                place, your, website, keywoards, here, keep, them, related, to, the, content, of, your, website
                 """
 
 
@@ -106,12 +104,17 @@ docpadConfig = {
 
     environments:
         development:
-            # anything here will be merged with the top-level (production) configuration if we are running inside the development environment
+            outPath: "out/"
             enabledPlugins:
-                # Disable Uflify for development
                 uglify: false
         static:
             outPath: "out/"
+            enabledPlugins:
+                uglify: true
+        public:
+            outPath: "public/"
+            enabledPlugins:
+                uglify: true
 
 }
 
