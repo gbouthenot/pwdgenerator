@@ -30,6 +30,7 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
       $("#nbspecial").val("1");
       $("#nbminlen").val("5");
       $("#nbmaxlen").val("8");
+      $("#ttl").val("365");
       # $("#alphabet").val("0123456789abcdefghijklmnopqrstuvwxyzAZERTYUIOPMLKJHGFDSQWXCVBN!&/*+<>-;,.\#()[]{}\\'\"@_$%:?")
       $("#alphabet").val("234789abcdefghijkmnopqrstuvwxyzAZERTYPMLKJHFDQWXCBN234789abcdefghijkmnopqrstuvwxyzAZERTYPMLKJHFDQWXCBN!&/*+<>-;,.()@_$%?")
 
@@ -53,7 +54,7 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
     @getOpts= ->
       opts = {}
       for key in [ "nbnumber", "nblower", "nbupper", "nbspecial", "nbminlen",
-                   "nbmaxlen", "alphabet", "selectseparator", "checkboxfirstnamefirst" ]
+                   "nbmaxlen", "alphabet", "selectseparator", "checkboxfirstnamefirst", "ttl" ]
         node = $("##{key}");
         if Gb.startsWith(key, "checkbox")
           val = node.is(":checked")
@@ -110,7 +111,14 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
       else if (nom.length)
         login = "#{nom}"
 
-      return "#{login} #{pass}"
+      # Limite le login à 20 caractères
+      login = login.substr(0, 20);
+
+      descriptif = $("#descriptif").val();
+      groupe = $("#groupe").val();
+      descriptif = descriptif.replace(/\"/, "");
+
+      return "#{login} #{pass} #{opts.ttl} #{groupe} \"#{descriptif}\""
 
     ###
       return a string split by a separator

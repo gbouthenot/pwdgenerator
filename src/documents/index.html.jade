@@ -27,6 +27,15 @@ fieldset.contraintes
   label Au moins
     input#nbspecial.unchiffre(type="number", required, min="0", max="3", pattern="^\\\\d{0,1}$"))
     |  caractère spécial.
+fieldset
+  legend Paramètres supplémentaires
+  label Durée de vie du compte en jours :
+    input#ttl(type="number")
+  label Groupe :
+    input#groupe(type="text", required="required", value="EXT")
+  label Descriptif :
+    input#descriptif(type="text", value="")
+
 fieldset.f_input.inline
   legend Fichier en entrée
   textarea#input(wrap='off').
