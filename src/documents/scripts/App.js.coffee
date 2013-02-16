@@ -11,7 +11,7 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb) ->
       $ = __$
       _randomSeed = +new Date()
       $("#resetparambtn").on "click", @setDefaultValuesHandler
-      $("#gobtn").on "click", @goClickHandler
+      $("body").delegate "input,textarea,select", {"change":@goClickHandler, "keyup":@goClickHandler},
 
       # Install resize handlers
       $("#input").on "mousedown",  (e) =>
@@ -37,23 +37,26 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb) ->
       $("#nbmaxlogin").val("20");
       # $("#alphabet").val("0123456789abcdefghijklmnopqrstuvwxyzAZERTYUIOPMLKJHGFDSQWXCVBN!&/*+<>-;,.\#()[]{}\\'\"@_$%:?")
       $("#alphabet").val("234789abcdefghijkmnopqrstuvwxyzAZERTYPMLKJHFDQWXCBN234789abcdefghijkmnopqrstuvwxyzAZERTYPMLKJHFDQWXCBN!&/*+<>-;,.()@_$%?")
+      @goClickHandler()
 
     @goClickHandler= =>
-      opts = @getOpts()
-      PwdGenerator.init($)
-      gen = new PwdGenerator(opts)
-      msg = gen.checkParams()
-      if msg != true
-        alert("Erreur dans les contraintes : #{msg}")
-        return
-      text = @getInput(opts).map (line) =>
-        processLine(line, gen, opts)
-      @setOutput text
+      try
+        opts = @getOpts()
+        PwdGenerator.init($)
+        gen = new PwdGenerator(opts)
+        msg = gen.checkParams()
+        if msg != true
+          throw "Erreur dans les contraintes : #{msg}"
+        text = @getInput(opts).map (line) =>
+          processLine(line, gen, opts)
+        @setOutput text
 
-      #text = @getInput()
-      #marked = window.marked
-      #text = marked(text.join("\n"))
-      #$("fieldset").first().html(text);
+        #text = @getInput()
+        #marked = window.marked
+        #text = marked(text.join("\n"))
+        #$("fieldset").first().html(text);
+      catch e
+        $("#output").val e
 
     @getOpts= ->
       opts = {}
