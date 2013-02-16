@@ -1,6 +1,8 @@
-define ["Gb"], (Gb, require)->
+define ["Gb", myMods.Random], (Gb)->
   class thismod
     $ = null
+    _Random = null
+
     @init: (__$) ->
       $ = __$
 
@@ -9,6 +11,8 @@ define ["Gb"], (Gb, require)->
     ###
 
     constructor: (@opts) ->
+      _Random = new window.Random()
+      _Random.seed(@opts.randomSeed)
 
     ###
       return a random integer between min (inclusive) and max (inclusive)
@@ -18,7 +22,7 @@ define ["Gb"], (Gb, require)->
       # Returns a random integer between min and max
       # Using Math.round() will give you a non-uniform distribution!
       # source: https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Math/random
-      return Math.floor(Math.random() * (max - min + 1)) + min;
+      return Math.floor(_Random.random() * (max - min + 1)) + min;
 
     ###
       return a random string of provided length

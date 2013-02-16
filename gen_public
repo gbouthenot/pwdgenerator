@@ -1,0 +1,12 @@
+#!/bin/bash
+# Developpement (génère dans out/, qui est .gitignoré)
+#   docpad run
+#   docpad run --env static
+# Générer le site static pour github:
+#   docpad generate --env public
+# Pusher vers la github: (push la branche locale "master" vers github "gh-pages")
+#   git push github master:gh-pages
+
+rm -rf public
+docpad generate --env public
+#git push github master:gh-pages

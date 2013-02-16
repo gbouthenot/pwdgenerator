@@ -1,12 +1,15 @@
-define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
+define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb) ->
   PwdGenerator = PwdGeneratorMod.PwdGenerator;
 
   class App
     $ = null
     resize = null
+    _randomSeed = null
+
     #constructor: (__$) -> $ = __$
     @init: (__$) ->
       $ = __$
+      _randomSeed = +new Date()
       $("#resetparambtn").on "click", @setDefaultValuesHandler
       $("#gobtn").on "click", @goClickHandler
 
@@ -30,7 +33,8 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
       $("#nbspecial").val("1");
       $("#nbminlen").val("5");
       $("#nbmaxlen").val("8");
-      $("#ttl").val("365");
+      $("#nbttl").val("365");
+      $("#nbmaxlogin").val("20");
       # $("#alphabet").val("0123456789abcdefghijklmnopqrstuvwxyzAZERTYUIOPMLKJHGFDSQWXCVBN!&/*+<>-;,.\#()[]{}\\'\"@_$%:?")
       $("#alphabet").val("234789abcdefghijkmnopqrstuvwxyzAZERTYPMLKJHFDQWXCBN234789abcdefghijkmnopqrstuvwxyzAZERTYPMLKJHFDQWXCBN!&/*+<>-;,.()@_$%?")
 
@@ -54,7 +58,8 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
     @getOpts= ->
       opts = {}
       for key in [ "nbnumber", "nblower", "nbupper", "nbspecial", "nbminlen",
-                   "nbmaxlen", "alphabet", "selectseparator", "checkboxfirstnamefirst", "ttl" ]
+                   "nbmaxlen", "alphabet", "selectseparator", "checkboxfirstnamefirst", "nbttl",
+                   "nbmaxlogin" ]
         node = $("##{key}");
         if Gb.startsWith(key, "checkbox")
           val = node.is(":checked")
@@ -62,6 +67,7 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
           val = node.val()
           val = parseInt(val, 10) if Gb.startsWith(key, "nb")
         opts[key] = val
+        opts.randomSeed = _randomSeed
       return opts
 
     ###
@@ -112,13 +118,13 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb, require) ->
         login = "#{nom}"
 
       # Limite le login à 20 caractères
-      login = login.substr(0, 20);
+      login = login.substr(0, opts.nbmaxlogin);
 
       descriptif = $("#descriptif").val();
       groupe = $("#groupe").val();
       descriptif = descriptif.replace(/\"/, "");
 
-      return "#{login} #{pass} #{opts.ttl} #{groupe} \"#{descriptif}\""
+      return "#{login} #{pass} #{opts.nbttl} #{groupe} \"#{descriptif}\""
 
     ###
       return a string split by a separator

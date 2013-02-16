@@ -1,6 +1,5 @@
 - var dotMin  = ("undefined" !== typeof this.docpad.loadedPlugins.uglify)?(".min"):("")
 - var scripts = getBlock("scripts");
-- scripts.add("vendor/random-js/random"+dotMin+".js");
 - var css = getBlock("styles");
 - css.add("vendor/bootstrap-twitter/css/bootstrap"+dotMin+".css");
 - var col = getCollection("stylesheet").findAll({isDocument:true}).toJSON();
@@ -29,3 +28,7 @@ html
   body
     != content
     != scripts.toHTML()
+
+  script
+    /*window.dotMin = '#{dotMin}';*/
+    window.myMods = { Random: "../vendor/random-js/random#{dotMin}.js"}

@@ -1,3 +1,0 @@
-rm -rf public
-docpad generate --env public
-git push github master:gh-pages
