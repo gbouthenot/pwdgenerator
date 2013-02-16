@@ -1,0 +1,4 @@
+#!/bin/bash
+
+coffee -c -p random.coffee                  > random.js
+coffee -c -p random.coffee | uglifyjs -c -m > random.min.js

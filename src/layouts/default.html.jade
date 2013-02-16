@@ -1,11 +1,14 @@
-- scripts = getBlock("scripts")
-- css = getBlock("styles")
-- css.add("vendor/bootstrap-twitter/css/bootstrap.min.css");
+- var dotMin  = ("undefined" !== typeof this.docpad.loadedPlugins.uglify)?(".min"):("")
+- var scripts = getBlock("scripts");
+- scripts.add("vendor/random-js/random"+dotMin+".js");
+- var css = getBlock("styles");
+- css.add("vendor/bootstrap-twitter/css/bootstrap"+dotMin+".css");
 - var col = getCollection("stylesheet").findAll({isDocument:true}).toJSON();
-- col.forEach(function(page){ var url;
+- col.forEach(function(page){
+-    var url;
 -    url = page.url;
 -    url = url.substr(1); // remove starting "/"
--    css.add(url)
+-    css.add(url);
 - });
 
 
@@ -20,7 +23,7 @@ html
     meta(name="robots", content="noindex, nofollow")
     title #{document.title}
     != getBlock("meta").toHTML()
-    script(src="vendor/require-js/require-jquery.js", data-main="scripts/main.js")
+    script(src="vendor/require-js/require-jquery"+dotMin+".js", data-main="scripts/main.js")
     != css.toHTML()
 
   body
