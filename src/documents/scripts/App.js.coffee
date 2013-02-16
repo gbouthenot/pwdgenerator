@@ -20,6 +20,9 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb) ->
         clearInterval(resize) if resize?
         resizeEvent()  # trigger it one last time
 
+      # generate passwords
+      @goClickHandler();
+
     resizeEvent = =>
       src = $("#input");
       dst = $("#output");

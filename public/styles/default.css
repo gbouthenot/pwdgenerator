@@ -2,7 +2,7 @@ body{background:#fcfbf5}
 .nobr{white-space:nowrap}
 input#nbmaxlen,input#nbminlen{width:2.5em}
 input#alphabet{width:40em}
-textarea#input,textarea#output{background:#eee;color:#000;border:1px solid #aaa;width:25em;height:15em;font-family:consolas,monospace;font-size:90%;line-height:120%}
+textarea#input,textarea#output{background:#eee;color:#000;border:1px solid #aaa;width:33em;height:15em;font-family:consolas,monospace;font-size:90%;line-height:120%}
 textarea#output{resize:none;cursor:text}
 fieldset{border:1px solid #bbb;margin:0 10px;padding:0 10px;background:#fdfefa}
 fieldset.contraintes input{width:2.5em}
@@ -11,6 +11,9 @@ legend{border:0;width:auto;margin:0}
 label{display:inline-block;white-space:nowrap;margin-right:1em}
 input[type=text],input[type=number]{margin:0;padding:0;border:0;outline:0}
 input[type=number].unchiffre{width:2.5em;margin-bottom:2px;padding-bottom:0}
+input[type=number].deuxchiffres{width:4em;margin-bottom:2px;padding-bottom:0}
+input#groupe{width:4em}
+input#descriptif{width:15em}
 select#selectseparator{width:auto}
 .chkboxctn{padding:4px 6px;border:1px solid #ccc;border-radius:4px;display:inline-block;margin-bottom:10px;vertical-align:middle;height:20px;line-height:20px}
 .chkboxctn input[type=checkbox]{margin:0}
