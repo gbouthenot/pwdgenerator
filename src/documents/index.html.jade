@@ -24,9 +24,10 @@ fieldset.contraintes
   label Au moins
     input#nbupper.unchiffre(type="number", required, min="0", max="3", pattern="^\\\\d{0,1}$"))
     |  lettre majuscule.
-  label Au moins
+  label Caractères spéciaux : entre
     input#nbspecial.unchiffre(type="number", required, min="0", max="3", pattern="^\\\\d{0,1}$"))
-    |  caractère spécial.
+  label et
+    input#nbspecialmax.unchiffre(type="number", required, min="0", max="3", pattern="^\\\\d{0,1}$"))
 fieldset
   legend Paramètres supplémentaires
   label Nb de caractères maximum du login :

@@ -7,7 +7,7 @@ define ["Gb", myMods.Random], (Gb)->
       $ = __$
 
     ###
-      @opts: {"nbnumber", "nblower", "nbupper", "nbspecial", "nbmaxlen", "nbminlen", "alphabet", "selectseparator", "checkboxfirstnamefirst"}
+      @opts: {"nbnumber", "nblower", "nbupper", "nbspecial", "nbspecialmax", "nbmaxlen", "nbminlen", "alphabet", "nbttl", "selectseparator", "checkboxfirstnamefirst", "nbmaxlogin"}
     ###
 
     constructor: (@opts) ->
@@ -55,6 +55,9 @@ define ["Gb", myMods.Random], (Gb)->
         if (@opts[cont] > @opts.nbmaxlen)
             # cannot satisfy this constraint: it would break the allowed maxlen
             return "La contrainte #{cont} est supérieur à la longueur maximale"
+        if (@opts.nbspecial > @opts.nbspecialmax)
+            # cannot satisfy this constraint: it would break the allowed maxlen
+            return "La contrainte caractères spéciaux max >= min"
         computedMinLen += @opts[cont]
 
       if computedMinLen > @opts.nbmaxlen
@@ -90,12 +93,22 @@ define ["Gb", myMods.Random], (Gb)->
         if (curnum < num)
           isValid = false;
 
+        # une contrainte avec le même nom avec "max" en plus existe ?
+        if (@opts[contrainte.idname+"max"])
+          if (curnum > @opts[contrainte.idname+"max"])
+            isValid = false;
+
       for iteration in [1...100]
         pass = thismod.randomString(len, alphabet);
         isValid = true;
 
-        # vérifie les contraintes
-        Gb.forEach(aContraintes, contrainteEnforcer);
+        # le premier caractère doit être une lettre
+        firstchar = pass.substr(0, 1);
+        if (!( (firstchar>="A" && firstchar<="Z") || (firstchar>="a" && firstchar<="z") ))
+          isValid = false
+        else
+          # vérifie les contraintes
+          Gb.forEach(aContraintes, contrainteEnforcer);
 
         if (isValid is true)
           # toutes les contraintes sont respectées

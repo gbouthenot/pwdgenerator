@@ -34,6 +34,7 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb) ->
       $("#nblower").val("1");
       $("#nbupper").val("1");
       $("#nbspecial").val("1");
+      $("#nbspecialmax").val("1");
       $("#nbminlen").val("5");
       $("#nbmaxlen").val("8");
       $("#nbttl").val("365");
@@ -63,7 +64,7 @@ define ["jquery", "PwdGenerator", "Gb"], ($, PwdGeneratorMod, Gb) ->
 
     @getOpts= ->
       opts = {}
-      for key in [ "nbnumber", "nblower", "nbupper", "nbspecial", "nbminlen",
+      for key in [ "nbnumber", "nblower", "nbupper", "nbspecial", "nbspecialmax", "nbminlen",
                    "nbmaxlen", "alphabet", "selectseparator", "checkboxfirstnamefirst", "nbttl",
                    "nbmaxlogin" ]
         node = $("##{key}");
