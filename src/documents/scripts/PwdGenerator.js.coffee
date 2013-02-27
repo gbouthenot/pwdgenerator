@@ -84,7 +84,6 @@ define ["Gb", myMods.Random], (Gb)->
       contrainteEnforcer = (contrainte) =>
         num = @opts[contrainte.idname];
         alpha = contrainte.alpha;
-        return if (num<=0)
 
         curnum = 0;
         for i in [0...alpha.length]
@@ -94,7 +93,7 @@ define ["Gb", myMods.Random], (Gb)->
           isValid = false;
 
         # une contrainte avec le même nom avec "max" en plus existe ?
-        if (@opts[contrainte.idname+"max"])
+        if (@opts[contrainte.idname+"max"]?)
           if (curnum > @opts[contrainte.idname+"max"])
             isValid = false;
 

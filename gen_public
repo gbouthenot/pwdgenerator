@@ -9,4 +9,6 @@
 
 rm -rf public
 docpad generate --env public
+#git add .
+#git commit
 #git push github master:gh-pages
